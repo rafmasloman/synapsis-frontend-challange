@@ -52,6 +52,19 @@ class UserService {
     }
   }
 
+  static async getUserDetail(userId: string) {
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${this.userEndpoint}/${userId}`,
+      );
+
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   static async updateUser(payload: IUpdateUserMutationParams, userId: string) {
     try {
       const response = await axios.put(

@@ -11,3 +11,11 @@ export interface IUpdateUserMutationParams {
   email?: string;
   status?: string;
 }
+
+export interface IGetUserQueryResponse {
+  id: string;
+  name: string;
+  gender: string;
+  email: string;
+  status: string;
+}
