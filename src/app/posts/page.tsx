@@ -6,11 +6,11 @@ const PostPage = async () => {
   const posts = await PostServices.getAllPosts();
 
   return (
-    <main className="container px-10 lg:px-24">
-      <div>PostPage</div>
+    <section className="">
+      <div className="w-full h-[2px] bg-gray-200 my-2"></div>
 
       <PostTemplate data={posts} />
-    </main>
+    </section>
   );
 };
 

@@ -7,7 +7,7 @@ import axios from 'axios';
 class UserService {
   private static userEndpoint = '/users';
 
-  static async createUser(payload: ICreateUserMutationParams) {
+  static async createUser(payload: any) {
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${this.userEndpoint}`,
@@ -15,6 +15,8 @@ class UserService {
         {
           headers: {
             'Content-Type': 'application/json',
+            Authorization:
+              'Bearer bdd54165b2e5cf0549d84dd3afcb78fc2e2bce2ccfa77b0194017dbecffe6594',
           },
         },
       );
@@ -22,6 +24,8 @@ class UserService {
       const data = await response.data;
       return data;
     } catch (error) {
+      console.log('error : ', error);
+
       throw error;
     }
   }

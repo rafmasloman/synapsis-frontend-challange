@@ -9,4 +9,9 @@ export const RoutesUtils = [
     label: 'Post',
     href: '/posts',
   },
+  {
+    id: 3,
+    label: 'Manage User',
+    href: '/users',
+  },
 ];

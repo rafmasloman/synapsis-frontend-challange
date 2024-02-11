@@ -17,7 +17,7 @@ export default function Home() {
 
         <div>
           <Button
-            className={`bg-[${COLORS.primary}] p-2 md:p-2.5 lg:p-3.5 rounded-lg`}
+            className={`bg-primary-color p-2 md:p-2.5 lg:p-3.5 rounded-lg`}
           >
             Explore Article
           </Button>
