@@ -64,7 +64,7 @@ const PostCard = ({ id, title, body, user_id }: PostCardTypes) => {
         <h3 className={`text-primary-color font-semibold text-lg md:text-2xl`}>
           {title}
         </h3>
-        <p className="text-gray-400 text-justify line-clamp-4 mt-2.5 text-xs md:text-base">
+        <p className="text-gray-400 text-justify line-clamp-2 md:line-clamp-4 mt-2.5 text-xs md:text-base">
           {body}
         </p>
       </div>
