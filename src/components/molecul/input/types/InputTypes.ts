@@ -1,15 +1,16 @@
-export type InputPropsTypes = {
+export interface InputPropsTypes
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   placeholder?: string;
-  classname?: string;
-  name?: string;
-};
+}
 
-export type SelectPropsTypes = {
+export interface SelectPropsTypes
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   options?: OptionInputPropsTypes[];
   name?: string;
-};
+  control?: any;
+}
 
 export type OptionInputPropsTypes = {
   value: string;

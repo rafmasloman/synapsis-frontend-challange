@@ -15,18 +15,26 @@ class UserService {
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization:
-              'Bearer bdd54165b2e5cf0549d84dd3afcb78fc2e2bce2ccfa77b0194017dbecffe6594',
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_GO_TOKEN}`,
           },
         },
       );
 
-      const data = await response.data;
-      return data;
-    } catch (error) {
-      console.log('error : ', error);
+      return {
+        status: response.status,
+        data: response.data,
+      };
+    } catch (error: any) {
+      if (error.response) {
+        const errorResponse = {
+          ...error.response.data[0],
+          status: error.response.status,
+        };
 
-      throw error;
+        return errorResponse;
+      } else {
+        throw error;
+      }
     }
   }
 
@@ -34,6 +42,11 @@ class UserService {
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${this.userEndpoint}`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_GO_TOKEN}`,
+          },
+        },
       );
 
       const data = await response.data;
@@ -60,16 +73,26 @@ class UserService {
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${this.userEndpoint}/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_GO_TOKEN}`,
+          },
+        },
       );
 
       const data = await response.data;
+
       return data;
     } catch (error) {
+      console.log('error : ', error);
+
       throw error;
     }
   }
 
-  static async updateUser(payload: IUpdateUserMutationParams, userId: string) {
+  static async updateUser(payload: ICreateUserMutationParams, userId: string) {
+    console.log('user id : ', userId);
+
     try {
       const response = await axios.put(
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${this.userEndpoint}/${userId}`,
@@ -77,13 +100,16 @@ class UserService {
         {
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_GO_TOKEN}`,
           },
         },
       );
 
       const data = await response.data;
       return data;
-    } catch (error) {
+    } catch (error: any) {
+      console.log(error.response);
+
       throw error;
     }
   }
@@ -92,11 +118,18 @@ class UserService {
     try {
       const response = await axios.delete(
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${this.userEndpoint}/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_GO_TOKEN}`,
+          },
+        },
       );
 
-      const data = await response.data;
+      const data = response.status;
       return data;
-    } catch (error) {
+    } catch (error: any) {
+      console.log(error.response.data);
+
       throw error;
     }
   }
