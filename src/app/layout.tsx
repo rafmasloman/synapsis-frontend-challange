@@ -3,6 +3,7 @@ import { Inter, Poppins } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/molecul/navbar/Navbar';
 import { RoutesUtils } from '@/utils/Route';
+import Provider from '@/provider/Provider';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -25,7 +26,7 @@ export default function RootLayout({
         <Navbar data={RoutesUtils} />
 
         <div className="my-20"></div>
-        {children}
+        <Provider>{children}</Provider>
       </body>
     </html>
   );

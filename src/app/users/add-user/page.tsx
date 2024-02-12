@@ -11,23 +11,6 @@ import { useRouter } from 'next/navigation';
 import { Controller, useForm } from 'react-hook-form';
 
 const AddUserPage = () => {
-  // async function createUser(formData: FormData) {
-  //   'use server';
-
-  //   const bodyData = {
-  //     name: formData.get('name'),
-  //     email: formData.get('email'),
-  //     gender: formData.get('gender'),
-  //     status: formData.get('status'),
-  //   };
-
-  //   const postData = await UserService.createUser(bodyData);
-
-  //   console.log('body data : ', bodyData);
-
-  //   console.log('data : ', postData);
-  // }
-
   const { push } = useRouter();
 
   const { register, handleSubmit, control } =
@@ -41,10 +24,6 @@ const AddUserPage = () => {
     }
 
     push('/users');
-
-    // revalidatePath('/users');
-
-    console.log('response data : ', response);
   });
 
   return (

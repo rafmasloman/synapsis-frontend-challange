@@ -7,12 +7,13 @@ import TextInput from '@/components/molecul/input/TextInput';
 import { OptionInputPropsTypes } from '@/components/molecul/input/types/InputTypes';
 import { ICreateUserMutationParams } from '@/interfaces/user.interfaces';
 import UserService from '@/services/user/user-services';
-import { useParams, usePathname } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 const EditUser = () => {
   const params = useParams();
+  const { push } = useRouter();
   const [userDetail, setUserDetail] = useState<any>({});
 
   useEffect(() => {
@@ -41,18 +42,13 @@ const EditUser = () => {
     async (data: ICreateUserMutationParams) => {
       const response = await mutationUpdate(data, params.userId as string);
 
-      if (response.status !== 201) {
-        console.log('body : ', response);
+      if (response.status !== 200) {
+        throw new Error('Failed to update user');
       }
+
+      push('/users');
     },
   );
-
-  console.log('user detail : ', userDetail);
-
-  const options = [
-    { text: 'Laki-laki', value: 'male' },
-    { text: 'Perempuan', value: 'female' },
-  ];
 
   return (
     <div>
@@ -87,7 +83,6 @@ const EditUser = () => {
           )}
           {...register('gender')}
         />
-
 
         <Controller
           control={control}

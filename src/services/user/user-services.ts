@@ -106,7 +106,11 @@ class UserService {
       );
 
       const data = await response.data;
-      return data;
+
+      return {
+        status: response.status,
+        data,
+      };
     } catch (error: any) {
       console.log(error.response);
 

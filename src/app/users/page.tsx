@@ -14,30 +14,32 @@ import { TbEdit } from 'react-icons/tb';
 import useModal from '@/hooks/useModal';
 import { useRouter } from 'next/navigation';
 import { deleteUser } from '../actions/UserAction';
+import { revalidatePath, revalidateTag } from 'next/cache';
+import refetchUser from '../actions/ServerAction';
+import { useRefetch } from '@/hooks/useRefetch';
+import {
+  useUserDeleteMutation,
+  useUserQueryGetMutation,
+} from '@/hooks/useUser';
 
 type Props = {};
 
 const UserPage = (props: Props) => {
-  const { push, refresh } = useRouter();
-
-  // const handleMovePage = () => {
-  //   push(`/users/add-user`);
-  // };
-
-  const [userData, setUserData] = useState<IGetUserQueryResponse[]>([]);
   const [userId, setUserId] = useState<string>('');
+
+  const { data: userData } = useUserQueryGetMutation();
+  const { mutate: deleteUser, isPending } = useUserDeleteMutation();
+
   const { isOpen, closeModal, openModal } = useModal(false);
 
   const handleDeleteUser = async () => {
-    const mutationDelete = await deleteUser(userId);
+    deleteUser(userId);
 
-    console.log('delete user : ', mutationDelete);
+    console.log('success  : ', isPending);
 
-    if (mutationDelete !== 204) {
-      return null;
+    if (!isPending) {
+      closeModal();
     }
-
-    closeModal();
   };
 
   const handleOpenModal = (userId: string) => {
@@ -47,20 +49,6 @@ const UserPage = (props: Props) => {
 
     openModal();
   };
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const response = await UserService.getAllUsers();
-
-      setUserData(response);
-    };
-
-    fetchUsers();
-  }, []);
-
-  // useEffect(() => {
-  //   location.reload();
-  // }, [userData]);
 
   return (
     <div>
@@ -119,7 +107,7 @@ const UserPage = (props: Props) => {
             </tr>
           </thead>
           <tbody>
-            {userData.map((user: IGetUserQueryResponse) => {
+            {userData?.map((user: IGetUserQueryResponse) => {
               return (
                 <tr
                   key={user.id}
