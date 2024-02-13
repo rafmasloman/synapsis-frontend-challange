@@ -7,9 +7,10 @@ const Button = ({
   onClick,
   leftSection,
   type,
+  ...props
 }: ButtonPropsTypes) => {
   return (
-    <button className={className} onClick={onClick} type={type}>
+    <button className={className} onClick={onClick} type={type} {...props}>
       {leftSection}
       {children}
     </button>

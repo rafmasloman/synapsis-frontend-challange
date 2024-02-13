@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation';
 const NavLink = ({ href, label }: NavLinkTypes) => {
   const params = usePathname();
   return (
-    <Link className="ml-10" href={href}>
+    <Link className="ml-10 text-white" href={href}>
       {label}
     </Link>
   );

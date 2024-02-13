@@ -24,38 +24,38 @@ const PostCard = ({ id, title, body, user_id }: PostCardTypes) => {
 
   console.log('user id :', user_id);
 
-  // useEffect(() => {
-  //   const fetchPostComments = async () => {
-  //     try {
-  //       const postComments = await PostServices.getAllCommentsByPost(id);
+  useEffect(() => {
+    const fetchPostComments = async () => {
+      try {
+        const postComments = await PostServices.getAllCommentsByPost(id);
 
-  //       setComments(postComments);
-  //     } catch (error) {
-  //       return error;
-  //     }
-  //   };
+        setComments(postComments);
+      } catch (error) {
+        return error;
+      }
+    };
 
-  //   const fetchUserDetail = async () => {
-  //     try {
-  //       const userDetail = await UserService.getUserDetail(user_id);
+    const fetchUserDetail = async () => {
+      try {
+        const userDetail = await UserService.getUserDetail(user_id);
 
-  //       setAuthor(userDetail.data);
-  //     } catch (error: any) {
-  //       setAuthor({
-  //         name: 'Author tidak ada',
-  //         email: '',
-  //         gender: '',
-  //         status: 'Tidak memiliki status',
-  //         id: '',
-  //       });
+        setAuthor(userDetail.data);
+      } catch (error: any) {
+        setAuthor({
+          name: 'Author tidak ada',
+          email: '',
+          gender: '',
+          status: 'Tidak memiliki status',
+          id: '',
+        });
 
-  //       return error;
-  //     }
-  //   };
+        return error;
+      }
+    };
 
-  //   fetchPostComments();
-  //   fetchUserDetail();
-  // }, [id, user_id]);
+    fetchPostComments();
+    fetchUserDetail();
+  }, [id, user_id]);
 
   return (
     <div className="bg-white flex flex-col justify-between space-y-4 md:space-y-7 rounded-xl shadow-md p-6 lg:p-7">

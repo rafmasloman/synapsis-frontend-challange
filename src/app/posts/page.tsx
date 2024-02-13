@@ -47,7 +47,7 @@ const PostPage = () => {
 
       <PostTemplate data={posts} />
 
-      <div className=" my-3.5"></div>
+      <div className="my-3.5"></div>
 
       <Pagination
         currentPage={currentPage}
