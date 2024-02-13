@@ -5,7 +5,7 @@ import Header from '@/components/molecul/header/Header';
 import PopupModal from '@/components/molecul/modal/PopupModal';
 import { IGetUserQueryResponse } from '@/interfaces/user.interfaces';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import { BiPlus } from 'react-icons/bi';
 import { MdDeleteOutline } from 'react-icons/md';
@@ -16,12 +16,16 @@ import {
   useUserQueryGetMutation,
 } from '@/hooks/useUser';
 import { useQueryClient } from '@tanstack/react-query';
+import TextInput from '@/components/molecul/input/TextInput';
 
 const UserPage = () => {
   const [userId, setUserId] = useState<string>('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQueryResult, setSearchQueryResult] = useState('');
 
   const { data: userData, refetch } = useUserQueryGetMutation({
+    name: searchQuery,
     page: currentPage.toString(),
     per_page: '10',
   });
@@ -38,16 +42,12 @@ const UserPage = () => {
   };
 
   const handleOpenModal = (userId: string) => {
-    console.log('user id for delete: ', userId);
-
     setUserId(userId);
 
     openModal();
   };
 
   const handleNextPage = () => {
-    console.log('clicked');
-
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
@@ -55,9 +55,14 @@ const UserPage = () => {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
   };
 
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setSearchQuery(e.target.value);
+  };
+
   useEffect(() => {
     refetch();
-  }, [currentPage]);
+  }, [currentPage, searchQuery]);
 
   return (
     <div>
@@ -69,6 +74,15 @@ const UserPage = () => {
           <Link href={`/users/add-user`}>Tambah User</Link>
         </Button>
       </Header>
+
+      <div className="my-7"></div>
+
+      <input
+        className="bg-stone-100 shadow-sm px-5 py-2.5 rounded-lg w-full md:w-1/2 lg:w-1/3"
+        placeholder="Cari User"
+        value={searchQuery}
+        onChange={handleSearchChange}
+      />
 
       <div className="my-12"></div>
 
