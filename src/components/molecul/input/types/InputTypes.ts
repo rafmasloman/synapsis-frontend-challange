@@ -1,3 +1,5 @@
+import { ChangeEvent, ReactNode } from 'react';
+
 export interface InputPropsTypes
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -15,4 +17,11 @@ export interface SelectPropsTypes
 export type OptionInputPropsTypes = {
   value: string;
   text: string;
+};
+
+export type SearchInputPropsTypes = {
+  searchQuery?: string;
+  handleSearchChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  children?: ReactNode;
 };

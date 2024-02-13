@@ -8,17 +8,21 @@ import React, { useEffect, useState } from 'react';
 import { queryGetAllPosts } from '../actions/PostAction';
 import { useRouter } from 'next/navigation';
 import { useBlogPost } from '@/hooks/useBlogPost';
+import { useSearch } from '@/hooks/useSearch';
+import SearchInput from '@/components/molecul/input/SearchInput';
 
 const PostPage = () => {
   const [posts, setPosts] = useState([]);
 
   const { currentPage, handleNextPage, handlePreviousPage } = usePagination();
+  const { searchQuery, handleSearchChange } = useSearch();
+
   const {
     data: blogPosts,
     isSuccess,
     refetch,
   } = useBlogPost({
-    title: '',
+    title: searchQuery,
     page: currentPage.toString(),
     per_page: '10',
   });
@@ -29,11 +33,17 @@ const PostPage = () => {
 
   useEffect(() => {
     refetch();
-  }, [currentPage, refetch]);
+  }, [currentPage, refetch, searchQuery]);
 
   return (
     <section className="">
       <div className="w-full h-[2px] bg-gray-200 my-2"></div>
+
+      <SearchInput
+        handleSearchChange={handleSearchChange}
+        searchQuery={searchQuery}
+        placeholder="Cari Artikel"
+      />
 
       <PostTemplate data={posts} />
 
