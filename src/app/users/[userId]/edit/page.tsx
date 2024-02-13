@@ -1,6 +1,6 @@
 'use client';
 
-import { getUserDetail, mutationUpdate } from '@/app/actions/UserAction';
+import { mutationUpdate } from '@/app/actions/UserAction';
 import Button from '@/components/atomic/button/Button';
 import SelectInput from '@/components/molecul/input/SelectInput';
 import TextInput from '@/components/molecul/input/TextInput';

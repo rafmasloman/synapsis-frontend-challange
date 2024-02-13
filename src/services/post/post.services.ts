@@ -30,6 +30,19 @@ class PostServices {
       throw error;
     }
   }
+
+  static async getPostDetail(postId: string) {
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${this.postEndpoint}/${postId}`,
+      );
+
+      const data = response.data;
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default PostServices;

@@ -4,7 +4,6 @@ import Button from '@/components/atomic/button/Button';
 import Header from '@/components/molecul/header/Header';
 import PopupModal from '@/components/molecul/modal/PopupModal';
 import { IGetUserQueryResponse } from '@/interfaces/user.interfaces';
-import UserService from '@/services/user/user-services';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
@@ -12,30 +11,26 @@ import { BiPlus } from 'react-icons/bi';
 import { MdDeleteOutline } from 'react-icons/md';
 import { TbEdit } from 'react-icons/tb';
 import useModal from '@/hooks/useModal';
-import { useRouter } from 'next/navigation';
-import { deleteUser } from '../actions/UserAction';
-import { revalidatePath, revalidateTag } from 'next/cache';
-import refetchUser from '../actions/ServerAction';
-import { useRefetch } from '@/hooks/useRefetch';
 import {
   useUserDeleteMutation,
   useUserQueryGetMutation,
 } from '@/hooks/useUser';
+import { useQueryClient } from '@tanstack/react-query';
 
-type Props = {};
-
-const UserPage = (props: Props) => {
+const UserPage = () => {
   const [userId, setUserId] = useState<string>('');
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const { data: userData } = useUserQueryGetMutation();
+  const { data: userData, refetch } = useUserQueryGetMutation({
+    page: currentPage.toString(),
+    per_page: '10',
+  });
   const { mutate: deleteUser, isPending } = useUserDeleteMutation();
 
   const { isOpen, closeModal, openModal } = useModal(false);
 
   const handleDeleteUser = async () => {
     deleteUser(userId);
-
-    console.log('success  : ', isPending);
 
     if (!isPending) {
       closeModal();
@@ -50,6 +45,20 @@ const UserPage = (props: Props) => {
     openModal();
   };
 
+  const handleNextPage = () => {
+    console.log('clicked');
+
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [currentPage]);
+
   return (
     <div>
       <Header title="Manage User">
@@ -60,6 +69,8 @@ const UserPage = (props: Props) => {
           <Link href={`/users/add-user`}>Tambah User</Link>
         </Button>
       </Header>
+
+      <div className="my-12"></div>
 
       <PopupModal
         title="Hapus data user?"
@@ -148,6 +159,30 @@ const UserPage = (props: Props) => {
             })}
           </tbody>
         </table>
+
+        <div className="my-10"></div>
+
+        <div className="flex flex-col items-center">
+          <span className="text-sm text-gray-600 ">
+            Showing <span className="font-semibold text-gray-900 ">10 </span>{' '}
+            data from page
+            <span className="font-semibold text-gray-900 "> {currentPage}</span>
+          </span>
+          <div className="inline-flex mt-2 xs:mt-0">
+            <button
+              className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-primary-color "
+              onClick={handlePreviousPage}
+            >
+              Prev
+            </button>
+            <button
+              className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-primary-color"
+              onClick={handleNextPage}
+            >
+              Next
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

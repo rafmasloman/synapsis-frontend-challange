@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} my-10`}>
+      <body className={`${poppins.className} my-10 bg-gray-50`}>
         <Navbar data={RoutesUtils} />
 
         <div className="my-20"></div>

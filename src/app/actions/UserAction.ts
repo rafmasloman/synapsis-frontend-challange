@@ -41,7 +41,7 @@ export async function mutationUpdate(
   return updateUser;
 }
 
-export async function getUserDetail(userId: string) {
+export async function queryUserDetail(userId: string) {
   const getUser = await UserService.getUserDetail(userId);
 
   return getUser;

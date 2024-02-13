@@ -38,10 +38,10 @@ class UserService {
     }
   }
 
-  static async getAllUsers() {
+  static async getAllUsers(page?: string, per_page?: string) {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${this.userEndpoint}`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${this.userEndpoint}?page=${page}&per_page=${per_page}`,
         {
           headers: {
             Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_GO_TOKEN}`,

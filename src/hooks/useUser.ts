@@ -12,9 +12,15 @@ export const useUserDeleteMutation = () => {
   });
 };
 
-export const useUserQueryGetMutation = () => {
+export const useUserQueryGetMutation = ({
+  page,
+  per_page,
+}: {
+  page?: string;
+  per_page?: string;
+}) => {
   return useQuery({
     queryKey: ['get-all-users-id-key'],
-    queryFn: () => UserService.getAllUsers(),
+    queryFn: () => UserService.getAllUsers(page, per_page),
   });
 };
