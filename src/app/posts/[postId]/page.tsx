@@ -50,13 +50,11 @@ const PostDetailPage = () => {
     const getUserDetail = async () => {
       const response = await queryUserDetail(postDetail.user_id);
 
-      setUserDetail(response);
+      setUserDetail(response.data);
     };
 
     getUserDetail();
   }, [postDetail.user_id]);
-
-  console.log('user detail : ', userDetail);
 
   return (
     <div>

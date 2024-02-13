@@ -11,7 +11,5 @@ export async function queryBlogPostDetail(postId: string) {
 export async function queryBlogPostCommentsDetail(postId: string) {
   const postComments = await PostServices.getAllCommentsByPost(postId);
 
-  console.log('post detail : ', postComments);
-
   return postComments;
 }

@@ -24,22 +24,36 @@ const PostCard = ({ id, title, body, user_id }: PostCardTypes) => {
 
   useEffect(() => {
     const fetchPostComments = async () => {
-      const postComments = await PostServices.getAllCommentsByPost(id);
+      try {
+        const postComments = await PostServices.getAllCommentsByPost(id);
 
-      setComments(postComments);
+        setComments(postComments);
+      } catch (error) {
+        return error;
+      }
     };
 
     const fetchUserDetail = async () => {
-      const userDetail = await UserService.getUserDetail(user_id);
+      try {
+        const userDetail = await UserService.getUserDetail(user_id);
 
-      setAuthor(userDetail);
+        setAuthor(userDetail.data);
+      } catch (error: any) {
+        setAuthor({
+          name: 'Author tidak ada',
+          email: '',
+          gender: '',
+          status: 'Tidak memiliki status',
+          id: '',
+        });
+
+        return error;
+      }
     };
 
     fetchPostComments();
     fetchUserDetail();
   }, [id, user_id]);
-
-  console.log('author name : ', id);
 
   return (
     <div className="bg-white flex flex-col justify-between space-y-4 md:space-y-7 rounded-xl shadow-md p-6 lg:p-7">

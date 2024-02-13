@@ -4,8 +4,6 @@ interface InputPropsType extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 const Input = React.forwardRef<HTMLInputElement, InputPropsType>(
   ({ type, ...props }, ref) => {
-    console.log('props : ', props);
-
     return (
       <input
         type={type}

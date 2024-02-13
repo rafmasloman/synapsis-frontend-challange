@@ -2,6 +2,7 @@ import {
   ICreateUserMutationParams,
   IUpdateUserMutationParams,
 } from '@/interfaces/user.interfaces';
+import { API_KEY } from '@/utils/API';
 import axios from 'axios';
 
 class UserService {
@@ -10,12 +11,16 @@ class UserService {
   static async createUser(payload: any) {
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${this.userEndpoint}`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT || API_KEY.ENDPOINT}/${
+          this.userEndpoint
+        }`,
         payload,
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_GO_TOKEN}`,
+            Authorization: `Bearer ${
+              process.env.NEXT_PUBLIC_API_GO_TOKEN || API_KEY.TOKEN
+            }`,
           },
         },
       );
@@ -38,13 +43,17 @@ class UserService {
     }
   }
 
-  static async getAllUsers(page?: string, per_page?: string) {
+  static async getAllUsers(name?: string, page?: string, per_page?: string) {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${this.userEndpoint}?page=${page}&per_page=${per_page}`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT || API_KEY.ENDPOINT}/${
+          this.userEndpoint
+        }?name=${name}&page=${page}&per_page=${per_page}`,
         {
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_GO_TOKEN}`,
+            Authorization: `Bearer ${
+              process.env.NEXT_PUBLIC_API_GO_TOKEN || API_KEY.TOKEN
+            }`,
           },
         },
       );
@@ -59,7 +68,9 @@ class UserService {
   static async getAllUserPost(userId: string) {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${this.userEndpoint}/${userId}/posts`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT || API_KEY.ENDPOINT}/${
+          this.userEndpoint
+        }/${userId}/posts`,
       );
 
       const data = await response.data;
@@ -72,35 +83,42 @@ class UserService {
   static async getUserDetail(userId: string) {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${this.userEndpoint}/${userId}`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT || API_KEY.ENDPOINT}/${
+          this.userEndpoint
+        }/${userId}`,
         {
           headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_GO_TOKEN}`,
+            Authorization: `Bearer ${
+              process.env.NEXT_PUBLIC_API_GO_TOKEN || API_KEY.TOKEN
+            }`,
           },
         },
       );
 
       const data = await response.data;
 
-      return data;
+      return {
+        status: response.status,
+        data,
+      };
     } catch (error) {
-      console.log('error : ', error);
-
       throw error;
     }
   }
 
   static async updateUser(payload: ICreateUserMutationParams, userId: string) {
-    console.log('user id : ', userId);
-
     try {
       const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${this.userEndpoint}/${userId}`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT || API_KEY.ENDPOINT}/${
+          this.userEndpoint
+        }/${userId}`,
         payload,
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_GO_TOKEN}`,
+            Authorization: `Bearer ${
+              process.env.NEXT_PUBLIC_API_GO_TOKEN || API_KEY.TOKEN
+            }`,
           },
         },
       );
@@ -112,8 +130,6 @@ class UserService {
         data,
       };
     } catch (error: any) {
-      console.log(error.response);
-
       throw error;
     }
   }
@@ -121,7 +137,9 @@ class UserService {
   static async deleteUser(userId: string) {
     try {
       const response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${this.userEndpoint}/${userId}`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT || API_KEY.ENDPOINT}/${
+          this.userEndpoint
+        }/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_GO_TOKEN}`,
@@ -132,8 +150,6 @@ class UserService {
       const data = response.status;
       return data;
     } catch (error: any) {
-      console.log(error.response.data);
-
       throw error;
     }
   }

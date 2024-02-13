@@ -13,14 +13,16 @@ export const useUserDeleteMutation = () => {
 };
 
 export const useUserQueryGetMutation = ({
+    name,
   page,
   per_page,
 }: {
+    name?: string,
   page?: string;
   per_page?: string;
 }) => {
   return useQuery({
     queryKey: ['get-all-users-id-key'],
-    queryFn: () => UserService.getAllUsers(page, per_page),
+    queryFn: () => UserService.getAllUsers(name, page, per_page),
   });
 };
