@@ -4,10 +4,18 @@ import axios from 'axios';
 class PostServices {
   private static postEndpoint = 'posts';
 
-  static async getAllPosts() {
+  static async getAllPosts({
+    title,
+    page,
+    per_page,
+  }: {
+    title?: string;
+    page?: string;
+    per_page?: string;
+  }) {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${this.postEndpoint}`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${this.postEndpoint}?title=${title}&page=${page}&per_page=${per_page}`,
         {
           headers: {
             Authorization: `Bearer ${

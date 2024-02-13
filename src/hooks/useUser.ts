@@ -13,11 +13,11 @@ export const useUserDeleteMutation = () => {
 };
 
 export const useUserQueryGetMutation = ({
-    name,
+  name,
   page,
   per_page,
 }: {
-    name?: string,
+  name?: string;
   page?: string;
   per_page?: string;
 }) => {
