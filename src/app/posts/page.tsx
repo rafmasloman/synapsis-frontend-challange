@@ -1,9 +1,20 @@
+'use client';
+
 import PostTemplate from '@/components/template/posts/PostTemplate';
 import PostServices from '@/services/post/post.services';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const PostPage = async () => {
-  const posts = await PostServices.getAllPosts();
+const PostPage = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      const posts = await PostServices.getAllPosts();
+      setPosts(posts);
+    };
+
+    fetchPost();
+  }, []);
 
   return (
     <section className="">

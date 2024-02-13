@@ -13,3 +13,9 @@ export async function queryBlogPostCommentsDetail(postId: string) {
 
   return postComments;
 }
+
+export async function queryGetAllPosts() {
+  const posts = await PostServices.getAllPosts();
+
+  return posts;
+}

@@ -1,3 +1,5 @@
+'use client';
+
 import PostServices from '@/services/post/post.services';
 import { PostTemplateTypes } from './types/PostTemplateTypes';
 import PostCard from '@/components/molecul/card/PostCard';

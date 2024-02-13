@@ -1,12 +1,20 @@
+import { API_KEY } from '@/utils/API';
 import axios from 'axios';
 
 class PostServices {
-  private static postEndpoint = '/posts';
+  private static postEndpoint = 'posts';
 
   static async getAllPosts() {
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${this.postEndpoint}`,
+        {
+          headers: {
+            Authorization: `Bearer ${
+              process.env.NEXT_PUBLIC_API_GO_TOKEN || API_KEY.TOKEN
+            }`,
+          },
+        },
       );
 
       const data = await response.data;

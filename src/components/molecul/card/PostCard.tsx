@@ -22,38 +22,40 @@ const PostCard = ({ id, title, body, user_id }: PostCardTypes) => {
     push(`/posts/${id}`);
   };
 
-  useEffect(() => {
-    const fetchPostComments = async () => {
-      try {
-        const postComments = await PostServices.getAllCommentsByPost(id);
+  console.log('user id :', user_id);
 
-        setComments(postComments);
-      } catch (error) {
-        return error;
-      }
-    };
+  // useEffect(() => {
+  //   const fetchPostComments = async () => {
+  //     try {
+  //       const postComments = await PostServices.getAllCommentsByPost(id);
 
-    const fetchUserDetail = async () => {
-      try {
-        const userDetail = await UserService.getUserDetail(user_id);
+  //       setComments(postComments);
+  //     } catch (error) {
+  //       return error;
+  //     }
+  //   };
 
-        setAuthor(userDetail.data);
-      } catch (error: any) {
-        setAuthor({
-          name: 'Author tidak ada',
-          email: '',
-          gender: '',
-          status: 'Tidak memiliki status',
-          id: '',
-        });
+  //   const fetchUserDetail = async () => {
+  //     try {
+  //       const userDetail = await UserService.getUserDetail(user_id);
 
-        return error;
-      }
-    };
+  //       setAuthor(userDetail.data);
+  //     } catch (error: any) {
+  //       setAuthor({
+  //         name: 'Author tidak ada',
+  //         email: '',
+  //         gender: '',
+  //         status: 'Tidak memiliki status',
+  //         id: '',
+  //       });
 
-    fetchPostComments();
-    fetchUserDetail();
-  }, [id, user_id]);
+  //       return error;
+  //     }
+  //   };
+
+  //   fetchPostComments();
+  //   fetchUserDetail();
+  // }, [id, user_id]);
 
   return (
     <div className="bg-white flex flex-col justify-between space-y-4 md:space-y-7 rounded-xl shadow-md p-6 lg:p-7">

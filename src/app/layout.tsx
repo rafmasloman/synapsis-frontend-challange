@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className={`${poppins.className} my-10 bg-gray-50`}>
         <Navbar data={RoutesUtils} />
 
-        <div className="my-20"></div>
+        <div className="my-12"></div>
         <Provider>{children}</Provider>
       </body>
     </html>

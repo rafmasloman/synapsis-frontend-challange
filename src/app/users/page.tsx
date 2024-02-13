@@ -17,12 +17,16 @@ import {
 } from '@/hooks/useUser';
 import { useQueryClient } from '@tanstack/react-query';
 import TextInput from '@/components/molecul/input/TextInput';
+import { usePagination } from '@/hooks/usePagination';
+import Pagination from '@/components/molecul/pagination/Pagination';
+import { useSearch } from '@/hooks/useSearch';
 
 const UserPage = () => {
   const [userId, setUserId] = useState<string>('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchQueryResult, setSearchQueryResult] = useState('');
+
+  const { isOpen, closeModal, openModal } = useModal(false);
+  const { currentPage, handleNextPage, handlePreviousPage } = usePagination();
+  const { searchQuery, handleSearchChange } = useSearch();
 
   const { data: userData, refetch } = useUserQueryGetMutation({
     name: searchQuery,
@@ -30,8 +34,6 @@ const UserPage = () => {
     per_page: '10',
   });
   const { mutate: deleteUser, isPending } = useUserDeleteMutation();
-
-  const { isOpen, closeModal, openModal } = useModal(false);
 
   const handleDeleteUser = async () => {
     deleteUser(userId);
@@ -47,22 +49,9 @@ const UserPage = () => {
     openModal();
   };
 
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
-  };
-
-  const handlePreviousPage = () => {
-    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
-  };
-
-  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setSearchQuery(e.target.value);
-  };
-
   useEffect(() => {
     refetch();
-  }, [currentPage, searchQuery]);
+  }, [currentPage, searchQuery, refetch]);
 
   return (
     <div>
@@ -176,27 +165,11 @@ const UserPage = () => {
 
         <div className="my-10"></div>
 
-        <div className="flex flex-col items-center">
-          <span className="text-sm text-gray-600 ">
-            Showing <span className="font-semibold text-gray-900 ">10 </span>{' '}
-            data from page
-            <span className="font-semibold text-gray-900 "> {currentPage}</span>
-          </span>
-          <div className="inline-flex mt-2 xs:mt-0">
-            <button
-              className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-primary-color "
-              onClick={handlePreviousPage}
-            >
-              Prev
-            </button>
-            <button
-              className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-primary-color"
-              onClick={handleNextPage}
-            >
-              Next
-            </button>
-          </div>
-        </div>
+        <Pagination
+          currentPage={currentPage}
+          onNextPage={handleNextPage}
+          onPreviousPage={handlePreviousPage}
+        />
       </div>
     </div>
   );

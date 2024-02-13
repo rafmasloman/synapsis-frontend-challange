@@ -6,7 +6,7 @@ import { API_KEY } from '@/utils/API';
 import axios from 'axios';
 
 class UserService {
-  private static userEndpoint = '/users';
+  private static userEndpoint = 'users';
 
   static async createUser(payload: any) {
     try {
@@ -83,14 +83,10 @@ class UserService {
   static async getUserDetail(userId: string) {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT || API_KEY.ENDPOINT}/${
-          this.userEndpoint
-        }/${userId}`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${this.userEndpoint}/${userId}`,
         {
           headers: {
-            Authorization: `Bearer ${
-              process.env.NEXT_PUBLIC_API_GO_TOKEN || API_KEY.TOKEN
-            }`,
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_GO_TOKEN}`,
           },
         },
       );
