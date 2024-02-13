@@ -7,6 +7,8 @@ const PostLayout = ({ children }: { children: ReactNode }) => {
   return (
     <main className="container px-10 lg:px-24">
       <Header title="Best Articles" />
+
+      <div className="my-5"></div>
       {children}
     </main>
   );

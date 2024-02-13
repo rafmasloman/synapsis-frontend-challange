@@ -54,7 +54,7 @@ const PostDetailPage = () => {
     };
 
     getUserDetail();
-  }, [postDetail.user_id]);
+  }, [postDetail?.user_id]);
 
   return (
     <div>
@@ -88,7 +88,7 @@ const PostDetailPage = () => {
         <div className="my-10"></div>
 
         <section className="flex flex-col gap-3.5">
-          {postComments.map((comment: IGetCommentsQueryResponse) => {
+          {postComments?.map((comment: IGetCommentsQueryResponse) => {
             return (
               <CommentCard
                 key={comment.id}
