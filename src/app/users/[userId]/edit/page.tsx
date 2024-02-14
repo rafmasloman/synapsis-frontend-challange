@@ -22,11 +22,13 @@ const EditUser = () => {
         params.userId as string,
       );
 
-      setUserDetail(userDetail);
+      setUserDetail(userDetail.data);
     };
 
     fetchUserDetail();
   }, []);
+
+  console.log('user detail : ', userDetail);
 
   const { register, handleSubmit, control } =
     useForm<ICreateUserMutationParams>({
@@ -52,10 +54,18 @@ const EditUser = () => {
 
   return (
     <div>
+      <div className="bg-gray-100 border rounded-lg p-3">
+        <h2 className="md:text-xl lg:text-2xl font-semibold">
+          Tambah Data User
+        </h2>
+      </div>
+
+      <div className="my-12"></div>
+
       <form
         method="POST"
         action={handleSubmitAction}
-        className="grid grid-cols-1 md:grid-cols-2 gap-5"
+        className="grid grid-cols-1 md:grid-cols-2 gap-y-5 md:gap-x-7 md:gap-y-12"
       >
         <TextInput
           label="Nama"
