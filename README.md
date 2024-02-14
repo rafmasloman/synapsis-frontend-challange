@@ -17,10 +17,6 @@
 
 ![Screenshot](public/screenshoot.png)
 
-2. Melas Detail Page
-
-![Screenshot](public/screenshoot_detail-meal.png)
-
 ### Installation Project
 
 1. Clone this repository.
