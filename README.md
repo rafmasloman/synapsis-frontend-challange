@@ -134,7 +134,3 @@ This project utilizes the following technologies:
 - [Tailwind CSS](https://tailwindcss.com/)
 - [React Query / Tanstack Query](https://tanstack.com/query/latest/)
 - [React Icons](https://react-icons.github.io/react-icons/)
-
-```
-
-```
