@@ -7,7 +7,7 @@ type Props = {};
 
 const Navbar = ({ data }: NavbarTypes) => {
   return (
-    <nav className="hidden md:flex  md:flex-row items-center justify-between py-5 lg:px-24 bg-black-primary mb-16">
+    <nav className="hidden md:flex  md:flex-row items-center justify-between py-5 lg:px-24 bg-black-primary">
       <div>
         <GonewsIcon />
       </div>

@@ -56,6 +56,8 @@ const UserPage = () => {
 
   return (
     <div>
+      <div className="my-20"></div>
+
       <Header title="Manage User">
         <Button
           className="bg-primary-color text-white flex items-center gap-2.5 lg:px-3 lg:py-2 rounded-full"

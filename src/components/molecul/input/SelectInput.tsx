@@ -8,7 +8,10 @@ const SelectInput = React.forwardRef<HTMLInputElement, any>(
         <label>{label}</label>
 
         <div className="my-1.5"></div>
-        <select className="bg-gray-100 px-5 py-2.5 rounded-lg" {...props}>
+        <select
+          className="bg-gray-100 border px-5 py-2.5 rounded-lg"
+          {...props}
+        >
           <option defaultValue={`Pilih ${label}`}>Pilih {label}</option>
           {options?.map((option: OptionInputPropsTypes) => {
             return (

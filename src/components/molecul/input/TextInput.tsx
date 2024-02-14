@@ -13,7 +13,7 @@ const TextInput = React.forwardRef<HTMLInputElement, InputPropsTypes>(
         <div className="my-1.5"></div>
         <input
           type={type}
-          className="bg-gray-50 px-5 py-2.5 rounded-lg"
+          className="bg-gray-100 border px-5 py-2.5 rounded-lg"
           placeholder={placeholder}
           ref={ref}
           {...props}

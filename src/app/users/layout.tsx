@@ -13,7 +13,12 @@ const UserLayout = ({ children }: { children: ReactNode }) => {
     push(`/users/add-user`);
   };
 
-  return <main className="container px-10 lg:px-24">{children}</main>;
+  return (
+    <main className="container px-10 lg:px-24">
+      <div className="my-20"></div>
+      {children}
+    </main>
+  );
 };
 
 export default UserLayout;
