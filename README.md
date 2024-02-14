@@ -15,7 +15,7 @@
 
 1. Landing Page
 
-![Screenshot](public/screenshoot.png)
+![Screenshot](public/screenshot.png)
 
 ### Installation Project
 
