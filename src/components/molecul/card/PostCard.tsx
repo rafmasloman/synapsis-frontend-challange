@@ -22,8 +22,6 @@ const PostCard = ({ id, title, body, user_id }: PostCardTypes) => {
     push(`/posts/${id}`);
   };
 
-  console.log('user id :', user_id);
-
   useEffect(() => {
     const fetchPostComments = async () => {
       try {

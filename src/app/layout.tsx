@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} bg-gray-50`}>
+      <body className={`${poppins.className} bg-gray-50 pb-24`}>
         <Head>
           <link rel="icon" href="/favicon.ico"></link>
         </Head>
